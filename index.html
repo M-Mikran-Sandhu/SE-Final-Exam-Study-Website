@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SE Final Exam - Easy Study Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="brand">
+                <h1 title="SE Final Exam Study">📚 SE Final Exam Study</h1>
+                <p>Easy to understand guide for Software Engineering Final Exam</p>
+            </div>
+
+            <!-- Mobile Menu Button (icon + text) -->
+            <button class="menu-btn" id="menuBtn">
+                <span class="menu-icon">☰</span>
+                <span class="menu-text"> Menu</span>
+            </button>
+        </div>
+    </header>
+
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <h2>Topics</h2>
+            <nav class="nav-links">
+                <button class="nav-link active" data-section="lecture11">Lecture 11: Requirements</button>
+                <button class="nav-link" data-section="lecture12">Lecture 12: Metrics & Design</button>
+                <button class="nav-link" data-section="lecture13">Lecture 13: Modularity</button>
+                <button class="nav-link" data-section="lecture14">Lecture 14: Quality & Estimation</button>
+                <button class="nav-link" data-section="lecture15">Lecture 15: Testing</button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Lecture 11 -->
+            <section id="lecture11" class="lecture-section active">
+                <h2>Lecture 11: Requirements & Metrics</h2>
+                
+                <div class="topic">
+                    <h3>What is SRS? (Software Requirements Specification)</h3>
+                    <p><strong>Simple Meaning:</strong> A document that lists everything the software should do.</p>
+                    <p><strong>Example:</strong> When you order food on Zomato, the SRS would say:
+                        <ul>
+                            <li>User can search for restaurants</li>
+                            <li>User can view menu items</li>
+                            <li>User can add items to cart</li>
+                            <li>User can pay online</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="topic">
+                    <h3>Verification vs Validation</h3>
+                    <p><strong>Verification:</strong> "Are we building the product right?" (Check if code matches requirements)</p>
+                    <p><strong>Validation:</strong> "Are we building the right product?" (Check if it's what customer wants)</p>
+                    <p><strong>Example:</strong> 
+                        <ul>
+                            <li>Verification: Code correctly implements the login feature</li>
+                            <li>Validation: Customer actually needs a login feature</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="topic">
+                    <h3>Requirements Elicitation (Gathering Requirements)</h3>
+                    <p><strong>Simple Meaning:</strong> Asking customers what they want.</p>
+                    <p><strong>Methods:</strong>
+                        <ul>
+                            <li>Interviews: Talk to users directly</li>
+                            <li>Surveys: Ask questions in a form</li>
+                            <li>Observation: Watch how people work</li>
+                            <li>Workshops: Group discussions</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="topic">
+                    <h3>Metrics (How to Measure Software)</h3>
+                    <p><strong>Measure:</strong> Raw data (e.g., 5000 lines of code)</p>
+                    <p><strong>Metric:</strong> Calculated value (e.g., 5000 lines / 10 developers = 500 lines per developer)</p>
+                    <p><strong>Indicator:</strong> What the metric tells us (e.g., productivity is high or low)</p>
+                    <p><strong>Example:</strong>
+                        <ul>
+                            <li>Measure: 50 bugs found</li>
+                            <li>Metric: 50 bugs / 10,000 lines = 0.5 bugs per 100 lines</li>
+                            <li>Indicator: Code quality is good</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="topic">
+                    <h3>Function Points (FP)</h3>
+                    <p><strong>Simple Meaning:</strong> Count how many features the software has.</p>
+                    <p><strong>Example:</strong> A banking app has:
+                        <ul>
+                            <li>Login (1 function)</li>
+                            <li>View balance (1 function)</li>
+                            <li>Transfer money (1 function)</li>
+                            <li>Pay bills (1 function)</li>
+                            <li>Total = 4 function points</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="quiz">
+                    <h4>Quick Quiz:</h4>
+                    <div class="question">
+                        <p><strong>Q1: What does SRS stand for?</strong></p>
+                        <label><input type="radio" name="q11" value="a"> Software Requirements Specification</label>
+                        <label><input type="radio" name="q11" value="b"> Software Release System</label>
+                        <label><input type="radio" name="q11" value="c"> Software Requirement Schedule</label>
+                    </div>
+                    <div class="question">
+                        <p><strong>Q2: Which is verification?</strong></p>
+                        <label><input type="radio" name="q12" value="a"> Customer wants this feature</label>
+                        <label><input type="radio" name="q12" value="b"> Code correctly implements the feature</label>
+                        <label><input type="radio" name="q12" value="c"> Feature is tested</label>
+                    </div>
+                    <button class="btn-check" onclick="checkQuiz('lecture11')">Check Answers</button>
+                </div>
+            </section>
+
+            <!-- Lecture 12 -->
+            <section id="lecture12" class="lecture-section">
+                <h2>Lecture 12: Metrics & Architecture Styles</h2>
+                
+                <div class="topic">
+                    <h3>Project Metrics vs Product Metrics</h3>
+                    <p><strong>Project Metrics:</strong> How well the team is working (time, cost, effort)</p>
+                    <p><strong>Product Metrics:</strong> How good the software is (quality, speed, size)</p>
+                    <p><strong>Example:</strong>
+                        <ul>
+                            <li>Project: Project took 6 months, cost $100,000, 10 developers</li>
+                            <li>Product: Software has 50,000 lines, 5 bugs, runs in 2 seconds</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="topic">
+                    <h3>Lines of Code (LOC) vs Function Points (FP)</h3>
+                    <p><strong>LOC:</strong> Count every line of code written</p>
+                    <p><strong>FP:</strong> Count features/functions</p>
+                    <p><strong>Example:</strong>
+                        <ul>
+                            <li>LOC: 10,000 lines of code</li>
+                            <li>FP: 50 features</li>
+                            <li>LOC depends on language (Python vs Java = different)</li>
+                            <li>FP is the same no matter what language</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="topic">
+                    <h3>Architecture Styles (How to Build Software)</h3>
+                    
+                    <div class="arch-style">
+                        <h4>1. Client-Server</h4>
+                        <p><strong>Idea:</strong> One main computer (server) serves many users (clients)</p>
+                        <p><strong>Example:</strong> Gmail - Your browser is the client, Google's computer is the server</p>
+                    </div>
+
+                    <div class="arch-style">
+                        <h4>2. Peer-to-Peer (P2P)</h4>
+                        <p><strong>Idea:</strong> All computers are equal, no main server</p>
+                        <p><strong>Example:</strong> BitTorrent - Everyone shares files with everyone</p>
+                    </div>
+
+                    <div class="arch-style">
+                        <h4>3. Layered Architecture</h4>
+                        <p><strong>Idea:</strong> Software has layers - UI layer, Business layer, Database layer</p>
+                        <p><strong>Example:</strong> Instagram
+                            <ul>
+                                <li>UI Layer: What you see on screen</li>
+                                <li>Business Layer: Logic for posting, liking, commenting</li>
+                                <li>Database Layer: Stores all data</li>
+                            </ul>
+                        </p>
+                    </div>
+
+                    <div class="arch-style">
+                        <h4>4. Publish-Subscribe</h4>
+                        <p><strong>Idea:</strong> Publishers send messages, subscribers receive them (no direct connection)</p>
+                        <p><strong>Example:</strong> YouTube notifications - You subscribe to a channel, YouTube publishes new videos, you get notified</p>
+                    </div>
+                </div>
+
+                <div class="quiz">
+                    <h4>Quick Quiz:</h4>
+                    <div class="question">
+                        <p><strong>Q1: What is a project metric?</strong></p>
+                        <label><input type="radio" name="q21" value="a"> How good the software is</label>
+                        <label><input type="radio" name="q21" value="b"> How well the team is working (time, cost)</label>
+                        <label><input type="radio" name="q21" value="c"> Number of bugs</label>
+                    </div>
+                    <div class="question">
+                        <p><strong>Q2: Which is language-independent?</strong></p>
+                        <label><input type="radio" name="q22" value="a"> Lines of Code (LOC)</label>
+                        <label><input type="radio" name="q22" value="b"> Function Points (FP)</label>
+                        <label><input type="radio" name="q22" value="c"> Both</label>
+                    </div>
+                    <button class="btn-check" onclick="checkQuiz('lecture12')">Check Answers</button>
+                </div>
+            </section>
+
+            <!-- Lecture 13 -->
+            <section id="lecture13" class="lecture-section">
+                <h2>Lecture 13: Modularity & Design</h2>
+                
+                <div class="topic">
+                    <h3>Coupling (How Connected are Modules?)</h3>
+                    <p><strong>Low Coupling (Good):</strong> Modules are independent, easy to change</p>
+                    <p><strong>High Coupling (Bad):</strong> Modules depend on each other, hard to change</p>
+                    <p><strong>Example:</strong>
+                        <ul>
+                            <li>Low Coupling: Login module doesn't need to know about Payment module</li>
+                            <li>High Coupling: If you change Login, Payment breaks</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="topic">
+                    <h3>Cohesion (Does Module Have One Purpose?)</h3>
+                    <p><strong>High Cohesion (Good):</strong> Module does one thing well</p>
+                    <p><strong>Low Cohesion (Bad):</strong> Module does many unrelated things</p>
+                    <p><strong>Example:</strong>
+                        <ul>
+                            <li>High Cohesion: Login module only handles user login</li>
+                            <li>Low Cohesion: Login module handles login, payment, and email</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="topic">
+                    <h3>Cost-Benefit Analysis (Is It Worth It?)</h3>
+                    <p><strong>ROI (Return on Investment):</strong> How much money you make back</p>
+                    <p><strong>Formula:</strong> (Profit - Cost) / Cost × 100%</p>
+                    <p><strong>Example:</strong>
+                        <ul>
+                            <li>Cost to build feature: $10,000</li>
+                            <li>Profit from feature: $15,000</li>
+                            <li>ROI = (15,000 - 10,000) / 10,000 × 100% = 50%</li>
+                            <li>Meaning: You make 50% profit</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="quiz">
+                    <h4>Quick Quiz:</h4>
+                    <div class="question">
+                        <p><strong>Q1: What is low coupling?</strong></p>
+                        <label><input type="radio" name="q31" value="a"> Modules are independent</label>
+                        <label><input type="radio" name="q31" value="b"> Modules depend on each other</label>
+                        <label><input type="radio" name="q31" value="c"> Modules are connected</label>
+                    </div>
+                    <div class="question">
+                        <p><strong>Q2: What is high cohesion?</strong></p>
+                        <label><input type="radio" name="q32" value="a"> Module does many things</label>
+                        <label><input type="radio" name="q32" value="b"> Module does one thing well</label>
+                        <label><input type="radio" name="q32" value="c"> Module is large</label>
+                    </div>
+                    <button class="btn-check" onclick="checkQuiz('lecture13')">Check Answers</button>
+                </div>
+            </section>
+
+            <!-- Lecture 14 -->
+            <section id="lecture14" class="lecture-section">
+                <h2>Lecture 14: Quality & Estimation</h2>
+                
+                <div class="topic">
+                    <h3>Defect Removal Efficiency (DRE)</h3>
+                    <p><strong>Simple Meaning:</strong> How many bugs you find before release</p>
+                    <p><strong>Formula:</strong> (Bugs found before release / Total bugs) × 100%</p>
+                    <p><strong>Example:</strong>
+                        <ul>
+                            <li>You find 90 bugs before release</li>
+                            <li>Customers find 10 bugs after release</li>
+                            <li>Total bugs = 100</li>
+                            <li>DRE = 90/100 × 100% = 90% (Good!)</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="topic">
+                    <h3>3-Point Estimation (Guess How Long It Takes)</h3>
+                    <p><strong>Simple Meaning:</strong> Make 3 guesses - best case, worst case, most likely</p>
+                    <p><strong>Formula:</strong> (Best + 4×Most Likely + Worst) / 6</p>
+                    <p><strong>Example:</strong>
+                        <ul>
+                            <li>Best case: 5 days</li>
+                            <li>Most likely: 10 days</li>
+                            <li>Worst case: 20 days</li>
+                            <li>Estimate = (5 + 4×10 + 20) / 6 = 65/6 ≈ 11 days</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="topic">
+                    <h3>COCOMO Model (Estimate Project Cost)</h3>
+                    <p><strong>Simple Meaning:</strong> Formula to guess how much effort a project needs</p>
+                    <p><strong>Effort = a × (Lines of Code)^b</strong></p>
+                    <p><strong>Example:</strong>
+                        <ul>
+                            <li>Project has 10,000 lines of code</li>
+                            <li>Using COCOMO: Effort = 2.4 × (10)^1.05 ≈ 25 person-months</li>
+                            <li>Meaning: Need 25 months of work from 1 person (or 2.5 months from 10 people)</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="quiz">
+                    <h4>Quick Quiz:</h4>
+                    <div class="question">
+                        <p><strong>Q1: What does DRE measure?</strong></p>
+                        <label><input type="radio" name="q41" value="a"> Bugs found before release</label>
+                        <label><input type="radio" name="q41" value="b"> Percentage of bugs found before release</label>
+                        <label><input type="radio" name="q41" value="c"> Total number of bugs</label>
+                    </div>
+                    <div class="question">
+                        <p><strong>Q2: What is 3-point estimation?</strong></p>
+                        <label><input type="radio" name="q42" value="a"> Estimate using 3 numbers: best, worst, most likely</label>
+                        <label><input type="radio" name="q42" value="b"> Estimate using 3 experts</label>
+                        <label><input type="radio" name="q42" value="c"> Estimate 3 times and take average</label>
+                    </div>
+                    <button class="btn-check" onclick="checkQuiz('lecture14')">Check Answers</button>
+                </div>
+            </section>
+
+            <!-- Lecture 15 -->
+            <section id="lecture15" class="lecture-section">
+                <h2>Lecture 15: Testing & Integration</h2>
+                
+                <div class="topic">
+                    <h3>Why Testing is Important</h3>
+                    <p><strong>Simple Meaning:</strong> Check if software works before giving to customers</p>
+                    <p><strong>Benefits:</strong>
+                        <ul>
+                            <li>Find bugs early (cheaper to fix)</li>
+                            <li>Make sure software does what it should</li>
+                            <li>Customers are happy</li>
+                            <li>Save money on fixing bugs later</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="topic">
+                    <h3>Black Box vs White Box Testing</h3>
+                    
+                    <div class="test-type">
+                        <h4>Black Box Testing</h4>
+                        <p><strong>Idea:</strong> Test without knowing how code works</p>
+                        <p><strong>Example:</strong> Test login form
+                            <ul>
+                                <li>Try empty username</li>
+                                <li>Try wrong password</li>
+                                <li>Try correct login</li>
+                            </ul>
+                        </p>
+                    </div>
+
+                    <div class="test-type">
+                        <h4>White Box Testing</h4>
+                        <p><strong>Idea:</strong> Test knowing how code works</p>
+                        <p><strong>Example:</strong> Test every line of login code
+                            <ul>
+                                <li>Test if statement works</li>
+                                <li>Test database connection</li>
+                                <li>Test password encryption</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="topic">
+                    <h3>Levels of Testing</h3>
+                    <p><strong>Unit Testing:</strong> Test one function/module alone</p>
+                    <p><strong>Integration Testing:</strong> Test how modules work together</p>
+                    <p><strong>System Testing:</strong> Test the whole software</p>
+                    <p><strong>Acceptance Testing:</strong> Customer tests if they like it</p>
+                    <p><strong>Example:</strong>
+                        <ul>
+                            <li>Unit: Test login function alone</li>
+                            <li>Integration: Test login + database together</li>
+                            <li>System: Test whole app (login, payment, profile)</li>
+                            <li>Acceptance: Customer uses app and says "yes, I like it"</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="topic">
+                    <h3>Cyclomatic Complexity (How Complex is Code?)</h3>
+                    <p><strong>Simple Meaning:</strong> Count how many different paths code can take</p>
+                    <p><strong>Example:</strong>
+                        <ul>
+                            <li>Simple code (no if/else): 1 path</li>
+                            <li>Code with 1 if: 2 paths</li>
+                            <li>Code with 2 ifs: 4 paths</li>
+                            <li>More paths = harder to test = more bugs</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="topic">
+                    <h3>Integration Testing Approaches</h3>
+                    <p><strong>Big Bang:</strong> Test all modules together at once</p>
+                    <p><strong>Top-Down:</strong> Test main module first, then smaller ones</p>
+                    <p><strong>Bottom-Up:</strong> Test small modules first, then combine</p>
+                    <p><strong>Sandwich:</strong> Mix of top-down and bottom-up</p>
+                </div>
+
+                <div class="quiz">
+                    <h4>Quick Quiz:</h4>
+                    <div class="question">
+                        <p><strong>Q1: What is black box testing?</strong></p>
+                        <label><input type="radio" name="q51" value="a"> Test without knowing code</label>
+                        <label><input type="radio" name="q51" value="b"> Test knowing code</label>
+                        <label><input type="radio" name="q51" value="c"> Test with black color</label>
+                    </div>
+                    <div class="question">
+                        <p><strong>Q2: Which is unit testing?</strong></p>
+                        <label><input type="radio" name="q52" value="a"> Test one function alone</label>
+                        <label><input type="radio" name="q52" value="b"> Test whole app</label>
+                        <label><input type="radio" name="q52" value="c"> Customer testing</label>
+                    </div>
+                    <button class="btn-check" onclick="checkQuiz('lecture15')">Check Answers</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
