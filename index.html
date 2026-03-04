@@ -1,440 +1,977 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SE Final Exam - Easy Study Guide</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Software Engineering Exam Preparation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #000; background-color: #fff; }
+        header { background-color: #000; color: #fff; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; background: none; border: none; padding: 0; }
+        .hamburger span { width: 25px; height: 3px; background-color: #fff; margin: 5px 0; transition: 0.3s; }
+        nav { display: flex; gap: 2rem; flex-wrap: wrap; }
+        nav a { color: #fff; text-decoration: none; padding: 0.5rem 1rem; transition: background-color 0.3s; border-radius: 4px; cursor: pointer; }
+        nav a:hover { background-color: #333; }
+        .mobile-menu { display: none; position: absolute; top: 60px; right: 0; background-color: #000; width: 100%; flex-direction: column; padding: 1rem; gap: 1rem; z-index: 99; }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a { color: #fff; text-decoration: none; padding: 0.75rem; border-left: 3px solid #fff; padding-left: 1rem; transition: background-color 0.3s; cursor: pointer; }
+        .mobile-menu a:hover { background-color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+        .hero { background-color: #f5f5f5; border: 2px solid #000; padding: 3rem 2rem; text-align: center; margin-bottom: 2rem; border-radius: 8px; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #000; }
+        .hero p { font-size: 1.1rem; color: #333; }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .section-title { font-size: 2rem; margin-bottom: 1rem; color: #000; border-bottom: 3px solid #000; padding-bottom: 0.5rem; }
+        .subsection { margin: 2rem 0; padding: 1.5rem; background-color: #f9f9f9; border-left: 4px solid #000; border-radius: 4px; }
+        .subsection h3 { font-size: 1.5rem; margin-bottom: 1rem; color: #000; }
+        .subsection h4 { font-size: 1.2rem; margin-top: 1rem; margin-bottom: 0.5rem; color: #000; }
+        .subsection p { margin-bottom: 1rem; text-align: justify; line-height: 1.8; }
+        .subsection ul, .subsection ol { margin-left: 2rem; margin-bottom: 1rem; }
+        .subsection li { margin-bottom: 0.5rem; line-height: 1.6; }
+        .urdu-summary { background-color: #e3f2fd; border-left: 4px solid #1976d2; padding: 1rem; margin: 1.5rem 0; border-radius: 4px; font-style: italic; color: #0d47a1; }
+        .urdu-summary-title { font-weight: bold; font-style: normal; color: #0d47a1; margin-bottom: 0.5rem; }
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; background-color: #fff; border: 1px solid #000; }
+        th { background-color: #000; color: #fff; padding: 1rem; text-align: left; font-weight: bold; }
+        td { padding: 0.75rem 1rem; border: 1px solid #ddd; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        tr:hover { background-color: #f0f0f0; }
+        .definition { background-color: #fff; border-left: 4px solid #000; padding: 1rem; margin: 1rem 0; border-radius: 4px; }
+        .definition-title { font-weight: bold; color: #000; margin-bottom: 0.5rem; }
+        .mcq-section { margin: 2rem 0; padding: 1.5rem; background-color: #f0f0f0; border: 2px solid #000; border-radius: 4px; }
+        .mcq-section h4 { font-size: 1.3rem; margin-bottom: 1rem; color: #000; }
+        .mcq { margin: 1.5rem 0; padding: 1rem; background-color: #fff; border: 1px solid #000; border-radius: 4px; }
+        .mcq-question { font-weight: bold; margin-bottom: 0.75rem; color: #000; }
+        .mcq-option { margin: 0.5rem 0; padding: 0.5rem; cursor: pointer; transition: background-color 0.3s; border-radius: 4px; }
+        .mcq-option:hover { background-color: #e0e0e0; }
+        .mcq-option input[type="radio"] { margin-right: 0.5rem; cursor: pointer; }
+        .mcq-answer { margin-top: 1rem; padding: 0.75rem; background-color: #e8f5e9; border-left: 4px solid #000; border-radius: 4px; display: none; color: #000; }
+        .mcq-answer.show { display: block; }
+        .show-answer-btn { background-color: #000; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; margin-top: 0.5rem; transition: background-color 0.3s; font-size: 0.9rem; }
+        .show-answer-btn:hover { background-color: #333; }
+        footer { background-color: #000; color: #fff; text-align: center; padding: 2rem; margin-top: 3rem; }
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            nav { display: none; }
+            .hero h1 { font-size: 1.8rem; }
+            .section-title { font-size: 1.5rem; }
+            .subsection h3 { font-size: 1.2rem; }
+            table { font-size: 0.9rem; }
+            th, td { padding: 0.5rem; }
+        }
+        @media (max-width: 480px) {
+            .hero { padding: 1.5rem 1rem; }
+            .hero h1 { font-size: 1.5rem; }
+            .section-title { font-size: 1.3rem; }
+            .subsection { padding: 1rem; }
+            .container { padding: 1rem 0.5rem; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
+    <header>
         <div class="header-container">
-            <div class="brand">
-                <h1 title="SE Final Exam Study">📚 SE Final Exam Study</h1>
-                <p>Easy to understand guide for Software Engineering Final Exam</p>
-            </div>
-
-            <!-- Mobile Menu Button (icon + text) -->
-            <button class="menu-btn" id="menuBtn">
-                <span class="menu-icon">☰</span>
-                <span class="menu-text"> Menu</span>
-            </button>
+            <div class="logo">📚 SE Exam Prep</div>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+            <nav id="nav-menu">
+                <a onclick="showSection('home')">Home</a>
+                <a onclick="showSection('requirements')">Requirements</a>
+                <a onclick="showSection('metrics')">Metrics</a>
+                <a onclick="showSection('architecture')">Architecture</a>
+                <a onclick="showSection('design')">Design</a>
+                <a onclick="showSection('estimation')">Estimation</a>
+                <a onclick="showSection('testing')">Testing</a>
+                <a onclick="showSection('final')">Final Exam</a>
+            </nav>
+        </div>
+        <div class="mobile-menu" id="mobile-menu">
+            <a onclick="showSection('home'); toggleMenu()">Home</a>
+            <a onclick="showSection('requirements'); toggleMenu()">Requirements</a>
+            <a onclick="showSection('metrics'); toggleMenu()">Metrics</a>
+            <a onclick="showSection('architecture'); toggleMenu()">Architecture</a>
+            <a onclick="showSection('design'); toggleMenu()">Design</a>
+            <a onclick="showSection('estimation'); toggleMenu()">Estimation</a>
+            <a onclick="showSection('testing'); toggleMenu()">Testing</a>
+            <a onclick="showSection('final'); toggleMenu()">Final Exam</a>
         </div>
     </header>
 
-
     <div class="container">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar" id="sidebar">
-            <h2>Topics</h2>
-            <nav class="nav-links">
-                <button class="nav-link active" data-section="lecture11">Lecture 11: Requirements</button>
-                <button class="nav-link" data-section="lecture12">Lecture 12: Metrics & Design</button>
-                <button class="nav-link" data-section="lecture13">Lecture 13: Modularity</button>
-                <button class="nav-link" data-section="lecture14">Lecture 14: Quality & Estimation</button>
-                <button class="nav-link" data-section="lecture15">Lecture 15: Testing</button>
-            </nav>
-        </aside>
+        <!-- HOME SECTION -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <h1>Software Engineering Exam Preparation</h1>
+                <p>Complete study guide with simplified explanations and Roman Urdu summaries</p>
+            </div>
+            <div class="subsection">
+                <h3>Welcome to Your Study Guide</h3>
+                <p>This website helps you learn Software Engineering in a simple way. Each topic has easy explanations and a Roman Urdu summary at the end so you can quickly remember what you learned. There are also practice questions (MCQs) to help you test your understanding.</p>
+                <h4>Topics Covered:</h4>
+                <ul>
+                    <li>Requirements Engineering (SRS, Verification, Validation, Elicitation)</li>
+                    <li>Software Metrics (Product, Process, Project Metrics, LOC, Function Points)</li>
+                    <li>Architecture Styles (Pipe-and-Filter, Client-Server, P2P, Publish-Subscribe, Repository, Layering)</li>
+                    <li>Design Principles (Modularity, Coupling, Cohesion, Tradeoff Analysis)</li>
+                    <li>Cost-Benefit Analysis (ROI, Payback Period)</li>
+                    <li>Software Estimation (PERT, COCOMO I, COCOMO II)</li>
+                    <li>Software Testing (Unit, Integration, Black Box, White Box, Cyclomatic Complexity)</li>
+                    <li>25 Final Exam Questions to test your knowledge</li>
+                </ul>
+            </div>
+        </section>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Lecture 11 -->
-            <section id="lecture11" class="lecture-section active">
-                <h2>Lecture 11: Requirements & Metrics</h2>
-                
-                <div class="topic">
-                    <h3>What is SRS? (Software Requirements Specification)</h3>
-                    <p><strong>Simple Meaning:</strong> A document that lists everything the software should do.</p>
-                    <p><strong>Example:</strong> When you order food on Zomato, the SRS would say:
-                        <ul>
-                            <li>User can search for restaurants</li>
-                            <li>User can view menu items</li>
-                            <li>User can add items to cart</li>
-                            <li>User can pay online</li>
-                        </ul>
-                    </p>
+        <!-- REQUIREMENTS SECTION -->
+        <section id="requirements" class="section">
+            <h2 class="section-title">1. Requirements Engineering</h2>
+
+            <div class="subsection">
+                <h3>What is Requirements Engineering?</h3>
+                <p>Requirements Engineering (RE) is about figuring out what a software system needs to do. It's like making a detailed plan before building a house, so everyone knows what to build and why. This process makes sure the final software works as people expect.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Requirements Engineering (RE) ka matlab hai software banane se pehle uski zarooriyat ko samajhna aur plan karna. Jaise ghar banane se pehle naksha banate hain, waise hi software ka bhi plan banta hai taake sabko pata ho kya banana hai aur kyun. Isse yeh yakeeni hota hai ke software waisa hi kaam karega jaisa log chahte hain.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>1.1 SRS - Software Requirements Specification</h3>
+                <p>An SRS is a formal document that clearly describes everything the software should do. Think of it as a contract between the client and the team building the software. It explains what features the software will have, how well it should perform, and any limitations.</p>
+                <p><strong>A good SRS must be:</strong> Complete (all needs written), Consistent (no conflicts), Clear (easy to understand), Testable (can be checked), and Traceable (source known).</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    SRS ek official document hai jo batata hai ke software kya karega. Yeh client aur banane wali team ke beech ek agreement ki tarah hai. Ismein software ke features, performance aur limits sab likhe hote hain. Ek achhi SRS complete, consistent, clear, testable aur traceable honi chahiye.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>1.2 Requirements Elicitation</h3>
+                <p>This is the process of collecting requirements from different people, like users, experts, or existing documents. It's often the hardest part because people might not know exactly what they want or might explain it differently.</p>
+                <p><strong>Ways to collect requirements:</strong> Interviews (talking to people), Surveys (asking questions), Workshops (group meetings), Observation (watching how people work), Document Analysis (reading old papers), Prototyping (making simple models), and Use Case Analysis (describing user interactions).</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Requirements Elicitation ka matlab hai logon se aur purane documents se software ki zarooriyat jama karna. Yeh thoda mushkil ho sakta hai kyunki log apni zarooriyat theek se bata nahi pate. Iske liye interviews, surveys, workshops aur prototyping jaise tareeqe istemal hote hain.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>1.3 Verification and Validation</h3>
+                <p><strong>Verification:</strong> Checks if we are building the product <strong>right</strong>. It means making sure the requirements are written correctly and clearly.</p>
+                <p><strong>Validation:</strong> Checks if we are building the <strong>right</strong> product. It means making sure the requirements actually solve the user's problem and meet their real needs.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Verification aur Validation do zaroori steps hain. Verification dekhta hai ke hum software ko *sahi tareeqe se* bana rahe hain (yani requirements theek likhi hain ya nahi). Validation dekhta hai ke hum *sahi software* bana rahe hain (yani requirements user ki asal zarooriyat poori kar rahi hain ya nahi).
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>1.4 Tools to Express Requirements</h3>
+                <p><strong>UML State-chart Diagram:</strong> Shows how a system changes its state based on different events. For example, an ATM machine goes from 'Idle' to 'Accepting Card' to 'Verifying PIN' and so on.</p>
+                <p><strong>Fence Diagram:</strong> Shows how different parts of a software system connect and interact with each other. It helps understand module dependencies.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    UML State-chart Diagram dikhata hai ke software kaise alag-alag halaton (states) mein badalta hai jab koi event hota hai. Fence Diagram software ke mukhtalif hisson (modules) ke beech ke connection aur interaction ko dikhata hai.
+                </div>
+            </div>
+
+            <div class="mcq-section">
+                <h4>Test Your Knowledge - Requirements Engineering</h4>
+                <div class="mcq">
+                    <div class="mcq-question">1. What is the primary goal of Requirements Elicitation?</div>
+                    <div class="mcq-option"><input type="radio" name="q1"> A) To write code</div>
+                    <div class="mcq-option"><input type="radio" name="q1"> B) To gather needs from stakeholders</div>
+                    <div class="mcq-option"><input type="radio" name="q1"> C) To test the software</div>
+                    <div class="mcq-option"><input type="radio" name="q1"> D) To deploy the application</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Requirements elicitation is gathering and extracting requirements from stakeholders.</div>
+                </div>
+                <div class="mcq">
+                    <div class="mcq-question">2. What is the output of the requirements specification phase?</div>
+                    <div class="mcq-option"><input type="radio" name="q2"> A) Design Document</div>
+                    <div class="mcq-option"><input type="radio" name="q2"> B) Test Plan</div>
+                    <div class="mcq-option"><input type="radio" name="q2"> C) Software Requirements Specification (SRS)</div>
+                    <div class="mcq-option"><input type="radio" name="q2"> D) User Manual</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: C</strong> - The SRS is the formal document specifying all requirements.</div>
+                </div>
+                <div class="mcq">
+                    <div class="mcq-question">3. Verification checks if we are building the _____ product?</div>
+                    <div class="mcq-option"><input type="radio" name="q3"> A) right</div>
+                    <div class="mcq-option"><input type="radio" name="q3"> B) correct</div>
+                    <div class="mcq-option"><input type="radio" name="q3"> C) best</div>
+                    <div class="mcq-option"><input type="radio" name="q3"> D) fast</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Verification checks if we're building the product correctly (right way).</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- METRICS SECTION -->
+        <section id="metrics" class="section">
+            <h2 class="section-title">2. Software Metrics and Measurements</h2>
+
+            <div class="subsection">
+                <h3>What are Software Metrics?</h3>
+                <p>Software metrics are like tools that help us measure different things about software, like its quality, how well it performs, or how long it takes to build. These measurements give us facts and numbers to plan, keep track of, and improve how we make software.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Software metrics aise tools hain jo software ki quality, performance aur banane mein lagne wale time ko mapne mein madad karte hain. Yeh measurements humein software banane ke process ko plan karne, monitor karne aur behtar banane ke liye zaroori information dete hain.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>2.1 Types of Metrics</h3>
+                <p><strong>Product Metrics:</strong> Measure the software itself (size, complexity, reliability). Examples: LOC, Function Points.</p>
+                <p><strong>Process Metrics:</strong> Measure how we build the software (effort, time, defects found). Examples: Defect rate, productivity.</p>
+                <p><strong>Project Metrics:</strong> Measure the project as a whole (cost, schedule, resources). Examples: Cost variance, schedule deviation.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Software metrics ki mukhtalif qismein hoti hain: Product Metrics (software ki size, complexity), Process Metrics (banane ke tareeqe ko), aur Project Metrics (poore project ko).
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>2.2 Lines of Code (LOC)</h3>
+                <p>LOC simply counts how many lines of code are in a program. It's easy to measure but doesn't tell you about code quality. Different programming languages have different LOC counts for the same functionality.</p>
+                <p><strong>Good:</strong> Easy to count, widely understood. <strong>Bad:</strong> Doesn't measure quality, varies by language.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Lines of Code (LOC) software mein code ki lines ko ginta hai. Yeh aasan hai lekin code ki quality nahi batata aur alag-alag languages mein iski counting alag hoti hai.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>2.3 Function Points (FP)</h3>
+                <p>Function Points measure the amount of useful work (functionality) a software provides. It looks at inputs, outputs, data files, and inquiries. The best thing about FP is that it doesn't depend on the programming language.</p>
+                <p><strong>Components:</strong> External Inputs (data in), External Outputs (data out), External Inquiries (questions), Internal Logical Files (data stored), External Interface Files (data from other systems).</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Function Points (FP) software ki functionality ko mapte hain. Yeh inputs, outputs aur data files jaisi cheezon ko dekhta hai. Iska sabse bada fayda yeh hai ke yeh kisi bhi programming language par depend nahi karta.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>2.4 Defect Removal Efficiency (DRE)</h3>
+                <p>DRE tells us how good we are at finding and fixing bugs before the software is released. It's a percentage that shows how many bugs we caught compared to all the bugs that existed.</p>
+                <p><strong>Formula:</strong> DRE = (Bugs found before release / Total bugs) × 100%</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Defect Removal Efficiency (DRE) batata hai ke hum software release hone se pehle kitni galtiyan dhoondh kar theek kar lete hain. Yeh ek percentage hai jo humne kitni galtiyan pakdi.
+                </div>
+            </div>
+
+            <div class="mcq-section">
+                <h4>Test Your Knowledge - Metrics</h4>
+                <div class="mcq">
+                    <div class="mcq-question">1. Which metric is language-independent?</div>
+                    <div class="mcq-option"><input type="radio" name="q4"> A) Lines of Code (LOC)</div>
+                    <div class="mcq-option"><input type="radio" name="q4"> B) Function Points (FP)</div>
+                    <div class="mcq-option"><input type="radio" name="q4"> C) Cyclomatic Complexity</div>
+                    <div class="mcq-option"><input type="radio" name="q4"> D) Defect Density</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Function Points measure functionality independent of programming language.</div>
+                </div>
+                <div class="mcq">
+                    <div class="mcq-question">2. What is the main disadvantage of LOC metrics?</div>
+                    <div class="mcq-option"><input type="radio" name="q5"> A) It is easy to measure</div>
+                    <div class="mcq-option"><input type="radio" name="q5"> B) It does not account for code quality</div>
+                    <div class="mcq-option"><input type="radio" name="q5"> C) It is widely used</div>
+                    <div class="mcq-option"><input type="radio" name="q5"> D) It is accurate</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - LOC does not measure code quality and encourages writing more code.</div>
+                </div>
+                <div class="mcq">
+                    <div class="mcq-question">3. Which of the following is NOT a component of Function Points?</div>
+                    <div class="mcq-option"><input type="radio" name="q6"> A) External Inputs</div>
+                    <div class="mcq-option"><input type="radio" name="q6"> B) External Outputs</div>
+                    <div class="mcq-option"><input type="radio" name="q6"> C) Code Lines</div>
+                    <div class="mcq-option"><input type="radio" name="q6"> D) Internal Logical Files</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: C</strong> - Code Lines (LOC) is not a component of Function Points.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARCHITECTURE SECTION -->
+        <section id="architecture" class="section">
+            <h2 class="section-title">3. Software Architecture Styles</h2>
+
+            <div class="subsection">
+                <h3>What is Software Architecture?</h3>
+                <p>Software architecture is like the blueprint of a building. It shows the main parts of a software system, how they connect, and the rules for building it. Architectural styles are common patterns for organizing software.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Software architecture software ka blueprint hota hai, jo uske main parts, unke connections aur banane ke rules batata hai. Architectural styles software ko organize karne ke common patterns hain.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>3.1 Pipe-and-Filter Architecture</h3>
+                <p>Data flows through a series of independent processing components (filters). Each filter does a specific job, and "pipes" connect them. This style is modular and reusable but can be slow because data needs to be changed between steps.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Pipe-and-Filter architecture mein data ek line mein chalta hai, jahan har step (filter) usko process karta hai. Har filter alag kaam karta hai. Yeh modular aur reusable hai, lekin interactive systems ke liye acha nahi.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>3.2 Client-Server Architecture</h3>
+                <p>Clients ask for services, and servers provide them. They talk over a network. Data is managed centrally on the server. Good for security but the server can become a bottleneck if too many clients ask for things at once.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Client-Server architecture mein clients (users) services mangte hain aur servers unko dete hain. Yeh data ko centralize karta hai aur security achhi hoti hai, lekin server par load zyada ho sakta hai.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>3.3 Peer-to-Peer (P2P) Architecture</h3>
+                <p>Each computer (peer) can act as both client and server. They talk directly to each other without needing a central hub. No single point of failure, but security and data consistency can be concerns.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Peer-to-Peer (P2P) architecture mein har computer client aur server dono ka kaam karta hai. Sab direct ek doosre se baat karte hain. Koi single point of failure nahi hota, lekin security aur data consistency mushkil ho sakti hai.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>3.4 Publish-Subscribe Architecture</h3>
+                <p>Publishers send messages to specific topics. Subscribers choose which topics they want and get only those messages. Publishers don't know who reads, and readers don't know who writes. Very flexible and scalable.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Publish-Subscribe architecture mein publishers messages bhejte hain topics par, aur subscribers un topics ko subscribe karke messages receive karte hain. Yeh scalable aur flexible hai.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>3.5 Repository Architecture</h3>
+                <p>All data is stored in a central place (repository). All parts of the software access this central data store. Good for data-intensive applications but the central store can become a bottleneck.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Repository architecture mein saara data ek central jagah (repository) par store hota hai. Yeh data consistency ke liye acha hai aur data-intensive applications ke liye behtar hai.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>3.6 Layering Architecture</h3>
+                <p>The system is organized into horizontal layers. Each layer has a specific job and only talks to layers directly above and below it. Clear separation but can be slow due to communication between layers.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Layering architecture mein software alag-alag layers mein divide hota hai. Yeh separation of concerns ke liye acha hai aur organize karna aasan hai.
+                </div>
+            </div>
+
+            <div class="mcq-section">
+                <h4>Test Your Knowledge - Architecture</h4>
+                <div class="mcq">
+                    <div class="mcq-question">1. In which architecture style does data flow through processing elements?</div>
+                    <div class="mcq-option"><input type="radio" name="q7"> A) Client-Server</div>
+                    <div class="mcq-option"><input type="radio" name="q7"> B) Pipe-and-Filter</div>
+                    <div class="mcq-option"><input type="radio" name="q7"> C) Layering</div>
+                    <div class="mcq-option"><input type="radio" name="q7"> D) Repository</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - In Pipe-and-Filter, data flows through processing components (filters).</div>
+                </div>
+                <div class="mcq">
+                    <div class="mcq-question">2. Which architecture style has no single point of failure?</div>
+                    <div class="mcq-option"><input type="radio" name="q8"> A) Client-Server</div>
+                    <div class="mcq-option"><input type="radio" name="q8"> B) Repository</div>
+                    <div class="mcq-option"><input type="radio" name="q8"> C) Peer-to-Peer</div>
+                    <div class="mcq-option"><input type="radio" name="q8"> D) Layering</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: C</strong> - P2P has no central server, so no single point of failure.</div>
+                </div>
+                <div class="mcq">
+                    <div class="mcq-question">3. Which architecture is best for data-intensive applications?</div>
+                    <div class="mcq-option"><input type="radio" name="q9"> A) Pipe-and-Filter</div>
+                    <div class="mcq-option"><input type="radio" name="q9"> B) Repository</div>
+                    <div class="mcq-option"><input type="radio" name="q9"> C) Peer-to-Peer</div>
+                    <div class="mcq-option"><input type="radio" name="q9"> D) Publish-Subscribe</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Repository architecture is good for data-intensive applications.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DESIGN SECTION -->
+        <section id="design" class="section">
+            <h2 class="section-title">4. Design Principles and Evaluation</h2>
+
+            <div class="subsection">
+                <h3>Good Software Design</h3>
+                <p>Good software design is super important for making systems that are easy to keep running, can grow bigger, and work reliably. Design rules like modularity, cohesion, and coupling help us build software that is well-organized.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Achha software design bahut zaroori hai taake system ko maintain karna, scale karna aur reliable banana aasan ho. Modularity, cohesion aur coupling jaise design principles achhe structured systems banane mein madad karte hain.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>4.1 Modularity</h3>
+                <p>Modularity means breaking down a big software system into smaller, independent parts called modules. Each module does a specific job. This makes the system easier to understand, change, and expand.</p>
+                <p><strong>Benefits:</strong> Easier to maintain, reusable, easier to test, faster development, easier to find bugs.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇒 Roman Urdu Summary:</div>
+                    Modularity ka matlab hai software ko chote, alag-alag hisson (modules) mein todna. Isse system ko samajhna, badalna aur bada karna aasan ho jata hai.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>4.2 Coupling and Cohesion</h3>
+                <p><strong>Coupling:</strong> How much different modules depend on each other. Low coupling is good (modules are independent).</p>
+                <p><strong>Cohesion:</strong> How well parts inside a module belong together. High cohesion is good (module has clear purpose).</p>
+                <p><strong>Design Goal:</strong> High cohesion and low coupling.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Coupling aur Cohesion design ke do important concepts hain. Coupling: modules ek doosre par kitna depend karte hain (low achha hai). Cohesion: ek module ke andar ke parts kitne achhe se ek saath kaam karte hain (high achha hai).
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>4.3 Tradeoff Analysis</h3>
+                <p>When we have different ways to design something, Tradeoff Analysis helps us pick the best one. We look at the pros and cons of each design, considering things like speed, cost, or ease of maintenance.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Jab hamare paas design ke kai options hote hain, toh Tradeoff Analysis humein sabse achha option chunne mein madad karta hai. Hum har design ke fayde aur nuksan dekhte hain.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>4.4 Cost-Benefit Analysis</h3>
+                <p><strong>ROI (Return on Investment):</strong> How much profit we get back from our investment. Formula: ROI = (Net Benefit / Total Cost) × 100%</p>
+                <p><strong>Payback Period:</strong> How long it takes to earn back the money we invested. Formula: Payback Period = Initial Investment / Average Annual Benefit</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Cost-Benefit Analysis yeh dekhta hai ke koi design idea financially kitna faida mand hai. ROI batata hai ke investment par kitna profit mila. Payback Period batata hai ke kitne time mein investment ka paisa wapas mil jayega.
+                </div>
+            </div>
+
+            <div class="mcq-section">
+                <h4>Test Your Knowledge - Design</h4>
+                <div class="mcq">
+                    <div class="mcq-question">1. High cohesion and low coupling are characteristics of:</div>
+                    <div class="mcq-option"><input type="radio" name="q10"> A) Poor design</div>
+                    <div class="mcq-option"><input type="radio" name="q10"> B) Good design</div>
+                    <div class="mcq-option"><input type="radio" name="q10"> C) Complex design</div>
+                    <div class="mcq-option"><input type="radio" name="q10"> D) Small projects only</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - High cohesion and low coupling characterize good, maintainable design.</div>
+                </div>
+                <div class="mcq">
+                    <div class="mcq-question">2. What does ROI stand for?</div>
+                    <div class="mcq-option"><input type="radio" name="q11"> A) Rate of Interest</div>
+                    <div class="mcq-option"><input type="radio" name="q11"> B) Return on Investment</div>
+                    <div class="mcq-option"><input type="radio" name="q11"> C) Risk of Implementation</div>
+                    <div class="mcq-option"><input type="radio" name="q11"> D) Reliable Output Index</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - ROI measures the profitability of an investment.</div>
+                </div>
+                <div class="mcq">
+                    <div class="mcq-question">3. Payback Period is calculated as:</div>
+                    <div class="mcq-option"><input type="radio" name="q12"> A) Initial Investment / Average Annual Benefit</div>
+                    <div class="mcq-option"><input type="radio" name="q12"> B) Average Annual Benefit / Initial Investment</div>
+                    <div class="mcq-option"><input type="radio" name="q12"> C) Initial Investment × Average Annual Benefit</div>
+                    <div class="mcq-option"><input type="radio" name="q12"> D) Initial Investment - Average Annual Benefit</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: A</strong> - Payback Period = Initial Investment / Average Annual Benefit.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ESTIMATION SECTION -->
+        <section id="estimation" class="section">
+            <h2 class="section-title">5. Software Project Estimation</h2>
+
+            <div class="subsection">
+                <h3>What is Project Estimation?</h3>
+                <p>Software project estimation is about guessing how much effort, time, money, and people we will need to finish a software project. Getting these guesses right is very important for planning the project and keeping everyone happy.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Software project estimation ka matlab hai yeh andaza lagana ke software project ko poora karne mein kitni mehnat, waqt, paisa aur log lagenge. Sahi andaza lagana project planning aur sab stakeholders ko khush rakhne ke liye bahut zaroori hai.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>5.1 3-Point Estimation (PERT)</h3>
+                <p>This is a way to estimate tasks by using three different guesses: Optimistic (best case), Most Likely (normal case), and Pessimistic (worst case). We combine these using a formula to get a realistic estimate.</p>
+                <p><strong>Formula:</strong> E = (O + 4M + P) / 6</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    3-Point Estimation (PERT) mein hum kisi bhi kaam ka andaza teen tarah se lagate hain: Optimistic (sabse achha case), Most Likely (aam halat), aur Pessimistic (sabse bura case). Phir in teenon ko ek formula se combine karke ek zyada realistic estimate nikalte hain.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>5.2 COCOMO I Model</h3>
+                <p>COCOMO I is an old model that helps estimate how much effort, cost, and time a software project will need. It uses the size of the project (in KLOC - thousands of lines of code) and how complex it is.</p>
+                <p><strong>Three types:</strong> Organic (small, simple), Semi-detached (medium), Embedded (large, complex).</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    COCOMO I ek purana model hai jo software project ki mehnat, cost aur time ka andaza lagane mein madad karta hai. Iske teen types hain: Organic (chote projects), Semi-detached (medium projects), aur Embedded (bade aur complex projects).
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>5.3 COCOMO II Model</h3>
+                <p>COCOMO II is a newer version made for modern software development. It's better for fast development, code reuse, and object-oriented systems. It gives better estimates for today's software projects.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    COCOMO II COCOMO model ka naya version hai. Yeh modern software development ke liye banaya gaya hai. Yeh aaj ke software projects ke liye behtar estimates deta hai.
+                </div>
+            </div>
+
+            <div class="mcq-section">
+                <h4>Test Your Knowledge - Estimation</h4>
+                <div class="mcq">
+                    <div class="mcq-question">1. The PERT formula for 3-point estimation is:</div>
+                    <div class="mcq-option"><input type="radio" name="q13"> A) E = (O + M + P) / 3</div>
+                    <div class="mcq-option"><input type="radio" name="q13"> B) E = (O + 4M + P) / 6</div>
+                    <div class="mcq-option"><input type="radio" name="q13"> C) E = (O + 2M + P) / 4</div>
+                    <div class="mcq-option"><input type="radio" name="q13"> D) E = O + M + P</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - The PERT formula is E = (O + 4M + P) / 6.</div>
+                </div>
+                <div class="mcq">
+                    <div class="mcq-question">2. Which COCOMO mode is for large, complex projects?</div>
+                    <div class="mcq-option"><input type="radio" name="q14"> A) Organic</div>
+                    <div class="mcq-option"><input type="radio" name="q14"> B) Semi-detached</div>
+                    <div class="mcq-option"><input type="radio" name="q14"> C) Embedded</div>
+                    <div class="mcq-option"><input type="radio" name="q14"> D) Basic</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: C</strong> - Embedded mode is for large, complex projects (300+ KLOC).</div>
+                </div>
+                <div class="mcq">
+                    <div class="mcq-question">3. What does COCOMO stand for?</div>
+                    <div class="mcq-option"><input type="radio" name="q15"> A) Component-based Cost Model</div>
+                    <div class="mcq-option"><input type="radio" name="q15"> B) Constructive Cost Model</div>
+                    <div class="mcq-option"><input type="radio" name="q15"> C) Complete Code Measurement</div>
+                    <div class="mcq-option"><input type="radio" name="q15"> D) Comprehensive Cost Modeling</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - COCOMO stands for Constructive Cost Model.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTING SECTION -->
+        <section id="testing" class="section">
+            <h2 class="section-title">6. Software Testing</h2>
+
+            <div class="subsection">
+                <h3>What is Software Testing?</h3>
+                <p>Software testing is about checking a program or system to find mistakes, make sure it works as it should, and confirm its quality. It's a very important step in making software, as it helps us find problems before users get the software.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Software testing ka matlab hai program ya system ko check karna taake galtiyan dhoondhi ja sakein. Yeh software banane ka ek bahut zaroori step hai, jo users tak software pahunchne se pehle problems ko dhoondhne mein madad karta hai.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>6.1 Why Testing is Important</h3>
+                <p><strong>Goals of Testing:</strong> Find bugs and errors, make sure software meets requirements, verify it works as expected, ensure quality and reliability, reduce risk of failures, and give confidence to stakeholders.</p>
+                <p><strong>Test Case:</strong> A set of steps, data, and expected results used to check if a specific feature works correctly.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Testing isliye zaroori hai taake software mein bugs dhoondhe ja sakein. Test Case ek set of steps, data aur expected results hota hai jo software ke ek khaas feature ko check karne ke liye istemal hota hai.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>6.2 Types of Mistakes and Debugging</h3>
+                <p><strong>Types of Faults:</strong> Logic errors (wrong thinking), Syntax errors (grammar mistakes), Semantic errors (wrong logic), Interface errors (connection problems), Performance faults (too slow), Data faults (wrong data handling).</p>
+                <p><strong>Debugging:</strong> The process of finding and fixing errors. Methods include: print statements, debugger tools, logging, breakpoints, code review.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Galtiyan (Faults) kayi tarah ki hoti hain, jaise logic mein galti, grammar mein galti (syntax), ya data handling mein galti. Debugging ka matlab hai in galtiyon ko dhoondhna aur theek karna.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>6.3 Levels of Testing</h3>
+                <p><strong>Unit Testing:</strong> Testing individual parts of the code in isolation. Tests each function or method separately.</p>
+                <p><strong>Integration Testing:</strong> Testing combined parts to make sure they work together. Approaches: Big Bang (all at once), Top-Down (start from top), Bottom-Up (start from bottom), Sandwich (mix of both).</p>
+                <p><strong>System Testing:</strong> Testing the complete system. <strong>Acceptance Testing:</strong> Users test to make sure it's ready.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Software ki testing alag-alag levels par hoti hai: Unit Testing (code ke chote-chote hisson ko alag-alag), Integration Testing (chote hisson ko jod kar), System Testing (poore system ko), Acceptance Testing (users ka test).
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>6.4 Black Box vs. White Box Testing</h3>
+                <p><strong>Black Box Testing:</strong> Testing without knowing how the code works inside. You just give inputs and check outputs. Tests from a user's perspective.</p>
+                <p><strong>White Box Testing:</strong> Testing with knowledge of how the code works inside. You can see and test the internal logic. Tests from a developer's perspective.</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Black Box Testing: Software ko bahar se test karna, uske andar ke code ko jaane bagair. White Box Testing: Software ke andar ke code ko jaan kar test karna.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>6.5 Cyclomatic Complexity</h3>
+                <p>Cyclomatic Complexity is a number that tells us how complicated a piece of code is. A higher number means the code is more complex and harder to test.</p>
+                <p><strong>Formula:</strong> V(G) = E - N + 2P (E = connections, N = steps, P = separate parts)</p>
+                <p><strong>Meaning:</strong> 1 = simple, 2-4 = easy, 5-7 = medium, 8-10 = hard, >10 = very hard (needs rewriting).</p>
+                <div class="urdu-summary">
+                    <div class="urdu-summary-title">🇵🇰 Roman Urdu Summary:</div>
+                    Cyclomatic Complexity ek number hai jo batata hai ke code kitna complex hai. Zyada number matlab zyada complex code aur usko test karna mushkil. Yeh humein code ke alag-alag paths ki tadad batata hai.
+                </div>
+            </div>
+
+            <div class="mcq-section">
+                <h4>Test Your Knowledge - Testing</h4>
+                <div class="mcq">
+                    <div class="mcq-question">1. Which testing level focuses on individual modules?</div>
+                    <div class="mcq-option"><input type="radio" name="q16"> A) System Testing</div>
+                    <div class="mcq-option"><input type="radio" name="q16"> B) Unit Testing</div>
+                    <div class="mcq-option"><input type="radio" name="q16"> C) Acceptance Testing</div>
+                    <div class="mcq-option"><input type="radio" name="q16"> D) Integration Testing</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Unit Testing focuses on testing individual components in isolation.</div>
+                </div>
+                <div class="mcq">
+                    <div class="mcq-question">2. Cyclomatic Complexity is a measure of:</div>
+                    <div class="mcq-option"><input type="radio" name="q17"> A) Code size</div>
+                    <div class="mcq-option"><input type="radio" name="q17"> B) Logical complexity</div>
+                    <div class="mcq-option"><input type="radio" name="q17"> C) Execution time</div>
+                    <div class="mcq-option"><input type="radio" name="q17"> D) Memory usage</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Cyclomatic Complexity measures the number of linearly independent paths.</div>
+                </div>
+                <div class="mcq">
+                    <div class="mcq-question">3. Which testing approach tests without knowing internal code?</div>
+                    <div class="mcq-option"><input type="radio" name="q18"> A) White Box Testing</div>
+                    <div class="mcq-option"><input type="radio" name="q18"> B) Black Box Testing</div>
+                    <div class="mcq-option"><input type="radio" name="q18"> C) Unit Testing</div>
+                    <div class="mcq-option"><input type="radio" name="q18"> D) Integration Testing</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Black Box Testing tests based on inputs/outputs without knowing internal code.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL EXAM SECTION -->
+        <section id="final" class="section">
+            <h2 class="section-title">Final Exam - 25 Comprehensive MCQs</h2>
+
+            <div class="subsection">
+                <h3>Instructions</h3>
+                <p>This section contains 25 multiple-choice questions covering all topics. Try to answer all questions without referring back to the content sections. This will help you see how well you understand the material.</p>
+            </div>
+
+            <div class="mcq-section">
+                <div class="mcq">
+                    <div class="mcq-question">1. What is the primary goal of Requirements Engineering?</div>
+                    <div class="mcq-option"><input type="radio" name="f1"> A) To write code for the system</div>
+                    <div class="mcq-option"><input type="radio" name="f1"> B) To establish clear understanding of what the software should do</div>
+                    <div class="mcq-option"><input type="radio" name="f1"> C) To test the software</div>
+                    <div class="mcq-option"><input type="radio" name="f1"> D) To deploy the application</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong></div>
                 </div>
 
-                <div class="topic">
-                    <h3>Verification vs Validation</h3>
-                    <p><strong>Verification:</strong> "Are we building the product right?" (Check if code matches requirements)</p>
-                    <p><strong>Validation:</strong> "Are we building the right product?" (Check if it's what customer wants)</p>
-                    <p><strong>Example:</strong> 
-                        <ul>
-                            <li>Verification: Code correctly implements the login feature</li>
-                            <li>Validation: Customer actually needs a login feature</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">2. Which of the following is NOT a characteristic of a good SRS?</div>
+                    <div class="mcq-option"><input type="radio" name="f2"> A) Completeness</div>
+                    <div class="mcq-option"><input type="radio" name="f2"> B) Ambiguity</div>
+                    <div class="mcq-option"><input type="radio" name="f2"> C) Verifiability</div>
+                    <div class="mcq-option"><input type="radio" name="f2"> D) Traceability</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - SRS should be clear and unambiguous, not ambiguous.</div>
                 </div>
 
-                <div class="topic">
-                    <h3>Requirements Elicitation (Gathering Requirements)</h3>
-                    <p><strong>Simple Meaning:</strong> Asking customers what they want.</p>
-                    <p><strong>Methods:</strong>
-                        <ul>
-                            <li>Interviews: Talk to users directly</li>
-                            <li>Surveys: Ask questions in a form</li>
-                            <li>Observation: Watch how people work</li>
-                            <li>Workshops: Group discussions</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">3. Validation ensures we are building the _____ product?</div>
+                    <div class="mcq-option"><input type="radio" name="f3"> A) right</div>
+                    <div class="mcq-option"><input type="radio" name="f3"> B) correct</div>
+                    <div class="mcq-option"><input type="radio" name="f3"> C) best</div>
+                    <div class="mcq-option"><input type="radio" name="f3"> D) fast</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: A</strong> - Validation checks if we're building the right product (right one).</div>
                 </div>
 
-                <div class="topic">
-                    <h3>Metrics (How to Measure Software)</h3>
-                    <p><strong>Measure:</strong> Raw data (e.g., 5000 lines of code)</p>
-                    <p><strong>Metric:</strong> Calculated value (e.g., 5000 lines / 10 developers = 500 lines per developer)</p>
-                    <p><strong>Indicator:</strong> What the metric tells us (e.g., productivity is high or low)</p>
-                    <p><strong>Example:</strong>
-                        <ul>
-                            <li>Measure: 50 bugs found</li>
-                            <li>Metric: 50 bugs / 10,000 lines = 0.5 bugs per 100 lines</li>
-                            <li>Indicator: Code quality is good</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">4. Which metric is language-independent?</div>
+                    <div class="mcq-option"><input type="radio" name="f4"> A) Lines of Code (LOC)</div>
+                    <div class="mcq-option"><input type="radio" name="f4"> B) Function Points (FP)</div>
+                    <div class="mcq-option"><input type="radio" name="f4"> C) Cyclomatic Complexity</div>
+                    <div class="mcq-option"><input type="radio" name="f4"> D) Execution Time</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Function Points measure functionality independent of programming language.</div>
                 </div>
 
-                <div class="topic">
-                    <h3>Function Points (FP)</h3>
-                    <p><strong>Simple Meaning:</strong> Count how many features the software has.</p>
-                    <p><strong>Example:</strong> A banking app has:
-                        <ul>
-                            <li>Login (1 function)</li>
-                            <li>View balance (1 function)</li>
-                            <li>Transfer money (1 function)</li>
-                            <li>Pay bills (1 function)</li>
-                            <li>Total = 4 function points</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">5. Product metrics are used to evaluate:</div>
+                    <div class="mcq-option"><input type="radio" name="f5"> A) The development process</div>
+                    <div class="mcq-option"><input type="radio" name="f5"> B) The software product itself</div>
+                    <div class="mcq-option"><input type="radio" name="f5"> C) The project schedule</div>
+                    <div class="mcq-option"><input type="radio" name="f5"> D) The team performance</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Product metrics measure characteristics of the software product.</div>
                 </div>
 
-                <div class="quiz">
-                    <h4>Quick Quiz:</h4>
-                    <div class="question">
-                        <p><strong>Q1: What does SRS stand for?</strong></p>
-                        <label><input type="radio" name="q11" value="a"> Software Requirements Specification</label>
-                        <label><input type="radio" name="q11" value="b"> Software Release System</label>
-                        <label><input type="radio" name="q11" value="c"> Software Requirement Schedule</label>
-                    </div>
-                    <div class="question">
-                        <p><strong>Q2: Which is verification?</strong></p>
-                        <label><input type="radio" name="q12" value="a"> Customer wants this feature</label>
-                        <label><input type="radio" name="q12" value="b"> Code correctly implements the feature</label>
-                        <label><input type="radio" name="q12" value="c"> Feature is tested</label>
-                    </div>
-                    <button class="btn-check" onclick="checkQuiz('lecture11')">Check Answers</button>
-                </div>
-            </section>
-
-            <!-- Lecture 12 -->
-            <section id="lecture12" class="lecture-section">
-                <h2>Lecture 12: Metrics & Architecture Styles</h2>
-                
-                <div class="topic">
-                    <h3>Project Metrics vs Product Metrics</h3>
-                    <p><strong>Project Metrics:</strong> How well the team is working (time, cost, effort)</p>
-                    <p><strong>Product Metrics:</strong> How good the software is (quality, speed, size)</p>
-                    <p><strong>Example:</strong>
-                        <ul>
-                            <li>Project: Project took 6 months, cost $100,000, 10 developers</li>
-                            <li>Product: Software has 50,000 lines, 5 bugs, runs in 2 seconds</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">6. What is the main disadvantage of LOC metrics?</div>
+                    <div class="mcq-option"><input type="radio" name="f6"> A) It is easy to measure</div>
+                    <div class="mcq-option"><input type="radio" name="f6"> B) It does not account for code quality</div>
+                    <div class="mcq-option"><input type="radio" name="f6"> C) It is widely used</div>
+                    <div class="mcq-option"><input type="radio" name="f6"> D) It is accurate</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - LOC does not measure code quality and encourages writing more code.</div>
                 </div>
 
-                <div class="topic">
-                    <h3>Lines of Code (LOC) vs Function Points (FP)</h3>
-                    <p><strong>LOC:</strong> Count every line of code written</p>
-                    <p><strong>FP:</strong> Count features/functions</p>
-                    <p><strong>Example:</strong>
-                        <ul>
-                            <li>LOC: 10,000 lines of code</li>
-                            <li>FP: 50 features</li>
-                            <li>LOC depends on language (Python vs Java = different)</li>
-                            <li>FP is the same no matter what language</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">7. In Pipe-and-Filter architecture, what do filters do?</div>
+                    <div class="mcq-option"><input type="radio" name="f7"> A) Store data</div>
+                    <div class="mcq-option"><input type="radio" name="f7"> B) Process and transform data</div>
+                    <div class="mcq-option"><input type="radio" name="f7"> C) Transmit data</div>
+                    <div class="mcq-option"><input type="radio" name="f7"> D) Validate data</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Filters are processing components that transform data in the pipeline.</div>
                 </div>
 
-                <div class="topic">
-                    <h3>Architecture Styles (How to Build Software)</h3>
-                    
-                    <div class="arch-style">
-                        <h4>1. Client-Server</h4>
-                        <p><strong>Idea:</strong> One main computer (server) serves many users (clients)</p>
-                        <p><strong>Example:</strong> Gmail - Your browser is the client, Google's computer is the server</p>
-                    </div>
-
-                    <div class="arch-style">
-                        <h4>2. Peer-to-Peer (P2P)</h4>
-                        <p><strong>Idea:</strong> All computers are equal, no main server</p>
-                        <p><strong>Example:</strong> BitTorrent - Everyone shares files with everyone</p>
-                    </div>
-
-                    <div class="arch-style">
-                        <h4>3. Layered Architecture</h4>
-                        <p><strong>Idea:</strong> Software has layers - UI layer, Business layer, Database layer</p>
-                        <p><strong>Example:</strong> Instagram
-                            <ul>
-                                <li>UI Layer: What you see on screen</li>
-                                <li>Business Layer: Logic for posting, liking, commenting</li>
-                                <li>Database Layer: Stores all data</li>
-                            </ul>
-                        </p>
-                    </div>
-
-                    <div class="arch-style">
-                        <h4>4. Publish-Subscribe</h4>
-                        <p><strong>Idea:</strong> Publishers send messages, subscribers receive them (no direct connection)</p>
-                        <p><strong>Example:</strong> YouTube notifications - You subscribe to a channel, YouTube publishes new videos, you get notified</p>
-                    </div>
+                <div class="mcq">
+                    <div class="mcq-question">8. Which architecture style has no central server?</div>
+                    <div class="mcq-option"><input type="radio" name="f8"> A) Client-Server</div>
+                    <div class="mcq-option"><input type="radio" name="f8"> B) Peer-to-Peer</div>
+                    <div class="mcq-option"><input type="radio" name="f8"> C) Repository</div>
+                    <div class="mcq-option"><input type="radio" name="f8"> D) Layering</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - P2P has no central server; each node is both client and server.</div>
                 </div>
 
-                <div class="quiz">
-                    <h4>Quick Quiz:</h4>
-                    <div class="question">
-                        <p><strong>Q1: What is a project metric?</strong></p>
-                        <label><input type="radio" name="q21" value="a"> How good the software is</label>
-                        <label><input type="radio" name="q21" value="b"> How well the team is working (time, cost)</label>
-                        <label><input type="radio" name="q21" value="c"> Number of bugs</label>
-                    </div>
-                    <div class="question">
-                        <p><strong>Q2: Which is language-independent?</strong></p>
-                        <label><input type="radio" name="q22" value="a"> Lines of Code (LOC)</label>
-                        <label><input type="radio" name="q22" value="b"> Function Points (FP)</label>
-                        <label><input type="radio" name="q22" value="c"> Both</label>
-                    </div>
-                    <button class="btn-check" onclick="checkQuiz('lecture12')">Check Answers</button>
-                </div>
-            </section>
-
-            <!-- Lecture 13 -->
-            <section id="lecture13" class="lecture-section">
-                <h2>Lecture 13: Modularity & Design</h2>
-                
-                <div class="topic">
-                    <h3>Coupling (How Connected are Modules?)</h3>
-                    <p><strong>Low Coupling (Good):</strong> Modules are independent, easy to change</p>
-                    <p><strong>High Coupling (Bad):</strong> Modules depend on each other, hard to change</p>
-                    <p><strong>Example:</strong>
-                        <ul>
-                            <li>Low Coupling: Login module doesn't need to know about Payment module</li>
-                            <li>High Coupling: If you change Login, Payment breaks</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">9. What does low coupling mean?</div>
+                    <div class="mcq-option"><input type="radio" name="f9"> A) Modules are highly dependent</div>
+                    <div class="mcq-option"><input type="radio" name="f9"> B) Modules are independent</div>
+                    <div class="mcq-option"><input type="radio" name="f9"> C) Modules share data</div>
+                    <div class="mcq-option"><input type="radio" name="f9"> D) Modules are tightly connected</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Low coupling means modules are independent and have minimal interdependence.</div>
                 </div>
 
-                <div class="topic">
-                    <h3>Cohesion (Does Module Have One Purpose?)</h3>
-                    <p><strong>High Cohesion (Good):</strong> Module does one thing well</p>
-                    <p><strong>Low Cohesion (Bad):</strong> Module does many unrelated things</p>
-                    <p><strong>Example:</strong>
-                        <ul>
-                            <li>High Cohesion: Login module only handles user login</li>
-                            <li>Low Cohesion: Login module handles login, payment, and email</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">10. High cohesion means:</div>
+                    <div class="mcq-option"><input type="radio" name="f10"> A) Elements have no relationship</div>
+                    <div class="mcq-option"><input type="radio" name="f10"> B) Elements work toward a common purpose</div>
+                    <div class="mcq-option"><input type="radio" name="f10"> C) Elements are scattered</div>
+                    <div class="mcq-option"><input type="radio" name="f10"> D) Elements are independent</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - High cohesion means elements work together for a common purpose.</div>
                 </div>
 
-                <div class="topic">
-                    <h3>Cost-Benefit Analysis (Is It Worth It?)</h3>
-                    <p><strong>ROI (Return on Investment):</strong> How much money you make back</p>
-                    <p><strong>Formula:</strong> (Profit - Cost) / Cost × 100%</p>
-                    <p><strong>Example:</strong>
-                        <ul>
-                            <li>Cost to build feature: $10,000</li>
-                            <li>Profit from feature: $15,000</li>
-                            <li>ROI = (15,000 - 10,000) / 10,000 × 100% = 50%</li>
-                            <li>Meaning: You make 50% profit</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">11. What is ROI?</div>
+                    <div class="mcq-option"><input type="radio" name="f11"> A) Rate of Interest</div>
+                    <div class="mcq-option"><input type="radio" name="f11"> B) Return on Investment</div>
+                    <div class="mcq-option"><input type="radio" name="f11"> C) Risk of Implementation</div>
+                    <div class="mcq-option"><input type="radio" name="f11"> D) Reliable Output Index</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - ROI measures the profitability of an investment.</div>
                 </div>
 
-                <div class="quiz">
-                    <h4>Quick Quiz:</h4>
-                    <div class="question">
-                        <p><strong>Q1: What is low coupling?</strong></p>
-                        <label><input type="radio" name="q31" value="a"> Modules are independent</label>
-                        <label><input type="radio" name="q31" value="b"> Modules depend on each other</label>
-                        <label><input type="radio" name="q31" value="c"> Modules are connected</label>
-                    </div>
-                    <div class="question">
-                        <p><strong>Q2: What is high cohesion?</strong></p>
-                        <label><input type="radio" name="q32" value="a"> Module does many things</label>
-                        <label><input type="radio" name="q32" value="b"> Module does one thing well</label>
-                        <label><input type="radio" name="q32" value="c"> Module is large</label>
-                    </div>
-                    <button class="btn-check" onclick="checkQuiz('lecture13')">Check Answers</button>
-                </div>
-            </section>
-
-            <!-- Lecture 14 -->
-            <section id="lecture14" class="lecture-section">
-                <h2>Lecture 14: Quality & Estimation</h2>
-                
-                <div class="topic">
-                    <h3>Defect Removal Efficiency (DRE)</h3>
-                    <p><strong>Simple Meaning:</strong> How many bugs you find before release</p>
-                    <p><strong>Formula:</strong> (Bugs found before release / Total bugs) × 100%</p>
-                    <p><strong>Example:</strong>
-                        <ul>
-                            <li>You find 90 bugs before release</li>
-                            <li>Customers find 10 bugs after release</li>
-                            <li>Total bugs = 100</li>
-                            <li>DRE = 90/100 × 100% = 90% (Good!)</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">12. The PERT formula for 3-point estimation is:</div>
+                    <div class="mcq-option"><input type="radio" name="f12"> A) E = (O + M + P) / 3</div>
+                    <div class="mcq-option"><input type="radio" name="f12"> B) E = (O + 4M + P) / 6</div>
+                    <div class="mcq-option"><input type="radio" name="f12"> C) E = (O + 2M + P) / 4</div>
+                    <div class="mcq-option"><input type="radio" name="f12"> D) E = O + M + P</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - The PERT formula is E = (O + 4M + P) / 6.</div>
                 </div>
 
-                <div class="topic">
-                    <h3>3-Point Estimation (Guess How Long It Takes)</h3>
-                    <p><strong>Simple Meaning:</strong> Make 3 guesses - best case, worst case, most likely</p>
-                    <p><strong>Formula:</strong> (Best + 4×Most Likely + Worst) / 6</p>
-                    <p><strong>Example:</strong>
-                        <ul>
-                            <li>Best case: 5 days</li>
-                            <li>Most likely: 10 days</li>
-                            <li>Worst case: 20 days</li>
-                            <li>Estimate = (5 + 4×10 + 20) / 6 = 65/6 ≈ 11 days</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">13. Which COCOMO mode is for large, complex projects?</div>
+                    <div class="mcq-option"><input type="radio" name="f13"> A) Organic</div>
+                    <div class="mcq-option"><input type="radio" name="f13"> B) Semi-detached</div>
+                    <div class="mcq-option"><input type="radio" name="f13"> C) Embedded</div>
+                    <div class="mcq-option"><input type="radio" name="f13"> D) Basic</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: C</strong> - Embedded mode is for large, complex projects (300+ KLOC).</div>
                 </div>
 
-                <div class="topic">
-                    <h3>COCOMO Model (Estimate Project Cost)</h3>
-                    <p><strong>Simple Meaning:</strong> Formula to guess how much effort a project needs</p>
-                    <p><strong>Effort = a × (Lines of Code)^b</strong></p>
-                    <p><strong>Example:</strong>
-                        <ul>
-                            <li>Project has 10,000 lines of code</li>
-                            <li>Using COCOMO: Effort = 2.4 × (10)^1.05 ≈ 25 person-months</li>
-                            <li>Meaning: Need 25 months of work from 1 person (or 2.5 months from 10 people)</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">14. In COCOMO I, the effort formula is:</div>
+                    <div class="mcq-option"><input type="radio" name="f14"> A) E = KLOC / a</div>
+                    <div class="mcq-option"><input type="radio" name="f14"> B) E = a × (KLOC)^b</div>
+                    <div class="mcq-option"><input type="radio" name="f14"> C) E = a + b × KLOC</div>
+                    <div class="mcq-option"><input type="radio" name="f14"> D) E = KLOC^a / b</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - The COCOMO I effort formula is E = a × (KLOC)^b.</div>
                 </div>
 
-                <div class="quiz">
-                    <h4>Quick Quiz:</h4>
-                    <div class="question">
-                        <p><strong>Q1: What does DRE measure?</strong></p>
-                        <label><input type="radio" name="q41" value="a"> Bugs found before release</label>
-                        <label><input type="radio" name="q41" value="b"> Percentage of bugs found before release</label>
-                        <label><input type="radio" name="q41" value="c"> Total number of bugs</label>
-                    </div>
-                    <div class="question">
-                        <p><strong>Q2: What is 3-point estimation?</strong></p>
-                        <label><input type="radio" name="q42" value="a"> Estimate using 3 numbers: best, worst, most likely</label>
-                        <label><input type="radio" name="q42" value="b"> Estimate using 3 experts</label>
-                        <label><input type="radio" name="q42" value="c"> Estimate 3 times and take average</label>
-                    </div>
-                    <button class="btn-check" onclick="checkQuiz('lecture14')">Check Answers</button>
-                </div>
-            </section>
-
-            <!-- Lecture 15 -->
-            <section id="lecture15" class="lecture-section">
-                <h2>Lecture 15: Testing & Integration</h2>
-                
-                <div class="topic">
-                    <h3>Why Testing is Important</h3>
-                    <p><strong>Simple Meaning:</strong> Check if software works before giving to customers</p>
-                    <p><strong>Benefits:</strong>
-                        <ul>
-                            <li>Find bugs early (cheaper to fix)</li>
-                            <li>Make sure software does what it should</li>
-                            <li>Customers are happy</li>
-                            <li>Save money on fixing bugs later</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">15. What is the primary objective of Unit Testing?</div>
+                    <div class="mcq-option"><input type="radio" name="f15"> A) Test the entire system</div>
+                    <div class="mcq-option"><input type="radio" name="f15"> B) Test individual components in isolation</div>
+                    <div class="mcq-option"><input type="radio" name="f15"> C) Test user acceptance</div>
+                    <div class="mcq-option"><input type="radio" name="f15"> D) Test performance</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Unit testing focuses on testing individual components in isolation.</div>
                 </div>
 
-                <div class="topic">
-                    <h3>Black Box vs White Box Testing</h3>
-                    
-                    <div class="test-type">
-                        <h4>Black Box Testing</h4>
-                        <p><strong>Idea:</strong> Test without knowing how code works</p>
-                        <p><strong>Example:</strong> Test login form
-                            <ul>
-                                <li>Try empty username</li>
-                                <li>Try wrong password</li>
-                                <li>Try correct login</li>
-                            </ul>
-                        </p>
-                    </div>
-
-                    <div class="test-type">
-                        <h4>White Box Testing</h4>
-                        <p><strong>Idea:</strong> Test knowing how code works</p>
-                        <p><strong>Example:</strong> Test every line of login code
-                            <ul>
-                                <li>Test if statement works</li>
-                                <li>Test database connection</li>
-                                <li>Test password encryption</li>
-                            </ul>
-                        </p>
-                    </div>
+                <div class="mcq">
+                    <div class="mcq-question">16. Integration Testing focuses on:</div>
+                    <div class="mcq-option"><input type="radio" name="f16"> A) Individual modules</div>
+                    <div class="mcq-option"><input type="radio" name="f16"> B) Combined modules and their interfaces</div>
+                    <div class="mcq-option"><input type="radio" name="f16"> C) User requirements</div>
+                    <div class="mcq-option"><input type="radio" name="f16"> D) System performance</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Integration testing focuses on combined modules and their interfaces.</div>
                 </div>
 
-                <div class="topic">
-                    <h3>Levels of Testing</h3>
-                    <p><strong>Unit Testing:</strong> Test one function/module alone</p>
-                    <p><strong>Integration Testing:</strong> Test how modules work together</p>
-                    <p><strong>System Testing:</strong> Test the whole software</p>
-                    <p><strong>Acceptance Testing:</strong> Customer tests if they like it</p>
-                    <p><strong>Example:</strong>
-                        <ul>
-                            <li>Unit: Test login function alone</li>
-                            <li>Integration: Test login + database together</li>
-                            <li>System: Test whole app (login, payment, profile)</li>
-                            <li>Acceptance: Customer uses app and says "yes, I like it"</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">17. The Big Bang integration approach:</div>
+                    <div class="mcq-option"><input type="radio" name="f17"> A) Integrates modules gradually from top-down</div>
+                    <div class="mcq-option"><input type="radio" name="f17"> B) Integrates modules gradually from bottom-up</div>
+                    <div class="mcq-option"><input type="radio" name="f17"> C) Integrates all modules at once</div>
+                    <div class="mcq-option"><input type="radio" name="f17"> D) Integrates modules in random order</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: C</strong> - Big Bang integration integrates all modules at once.</div>
                 </div>
 
-                <div class="topic">
-                    <h3>Cyclomatic Complexity (How Complex is Code?)</h3>
-                    <p><strong>Simple Meaning:</strong> Count how many different paths code can take</p>
-                    <p><strong>Example:</strong>
-                        <ul>
-                            <li>Simple code (no if/else): 1 path</li>
-                            <li>Code with 1 if: 2 paths</li>
-                            <li>Code with 2 ifs: 4 paths</li>
-                            <li>More paths = harder to test = more bugs</li>
-                        </ul>
-                    </p>
+                <div class="mcq">
+                    <div class="mcq-question">18. Black Box Testing is based on:</div>
+                    <div class="mcq-option"><input type="radio" name="f18"> A) Internal code structure</div>
+                    <div class="mcq-option"><input type="radio" name="f18"> B) Inputs and expected outputs</div>
+                    <div class="mcq-option"><input type="radio" name="f18"> C) Code paths</div>
+                    <div class="mcq-option"><input type="radio" name="f18"> D) Algorithm complexity</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Black Box testing is based on inputs and expected outputs without knowing internal code.</div>
                 </div>
 
-                <div class="topic">
-                    <h3>Integration Testing Approaches</h3>
-                    <p><strong>Big Bang:</strong> Test all modules together at once</p>
-                    <p><strong>Top-Down:</strong> Test main module first, then smaller ones</p>
-                    <p><strong>Bottom-Up:</strong> Test small modules first, then combine</p>
-                    <p><strong>Sandwich:</strong> Mix of top-down and bottom-up</p>
+                <div class="mcq">
+                    <div class="mcq-question">19. Cyclomatic Complexity measures:</div>
+                    <div class="mcq-option"><input type="radio" name="f19"> A) Code size</div>
+                    <div class="mcq-option"><input type="radio" name="f19"> B) Number of linearly independent paths</div>
+                    <div class="mcq-option"><input type="radio" name="f19"> C) Execution time</div>
+                    <div class="mcq-option"><input type="radio" name="f19"> D) Memory usage</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Cyclomatic Complexity measures the number of linearly independent paths.</div>
                 </div>
 
-                <div class="quiz">
-                    <h4>Quick Quiz:</h4>
-                    <div class="question">
-                        <p><strong>Q1: What is black box testing?</strong></p>
-                        <label><input type="radio" name="q51" value="a"> Test without knowing code</label>
-                        <label><input type="radio" name="q51" value="b"> Test knowing code</label>
-                        <label><input type="radio" name="q51" value="c"> Test with black color</label>
-                    </div>
-                    <div class="question">
-                        <p><strong>Q2: Which is unit testing?</strong></p>
-                        <label><input type="radio" name="q52" value="a"> Test one function alone</label>
-                        <label><input type="radio" name="q52" value="b"> Test whole app</label>
-                        <label><input type="radio" name="q52" value="c"> Customer testing</label>
-                    </div>
-                    <button class="btn-check" onclick="checkQuiz('lecture15')">Check Answers</button>
+                <div class="mcq">
+                    <div class="mcq-question">20. The formula for Cyclomatic Complexity is:</div>
+                    <div class="mcq-option"><input type="radio" name="f20"> A) V(G) = E - N + 2P</div>
+                    <div class="mcq-option"><input type="radio" name="f20"> B) V(G) = E + N - 2P</div>
+                    <div class="mcq-option"><input type="radio" name="f20"> C) V(G) = E / N + P</div>
+                    <div class="mcq-option"><input type="radio" name="f20"> D) V(G) = E × N - P</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: A</strong> - The formula is V(G) = E - N + 2P.</div>
                 </div>
-            </section>
-        </main>
+
+                <div class="mcq">
+                    <div class="mcq-question">21. Defect Removal Efficiency measures:</div>
+                    <div class="mcq-option"><input type="radio" name="f21"> A) The number of defects found</div>
+                    <div class="mcq-option"><input type="radio" name="f21"> B) The percentage of defects removed before release</div>
+                    <div class="mcq-option"><input type="radio" name="f21"> C) The cost of fixing defects</div>
+                    <div class="mcq-option"><input type="radio" name="f21"> D) The time to fix defects</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - DRE measures the percentage of defects found and fixed before release.</div>
+                </div>
+
+                <div class="mcq">
+                    <div class="mcq-question">22. Which architecture style is best for data-intensive applications?</div>
+                    <div class="mcq-option"><input type="radio" name="f22"> A) Pipe-and-Filter</div>
+                    <div class="mcq-option"><input type="radio" name="f22"> B) Client-Server</div>
+                    <div class="mcq-option"><input type="radio" name="f22"> C) Repository</div>
+                    <div class="mcq-option"><input type="radio" name="f22"> D) Peer-to-Peer</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: C</strong> - Repository architecture is good for data-intensive applications.</div>
+                </div>
+
+                <div class="mcq">
+                    <div class="mcq-question">23. The Payback Period is calculated as:</div>
+                    <div class="mcq-option"><input type="radio" name="f23"> A) Initial Investment / Average Annual Benefit</div>
+                    <div class="mcq-option"><input type="radio" name="f23"> B) Average Annual Benefit / Initial Investment</div>
+                    <div class="mcq-option"><input type="radio" name="f23"> C) Initial Investment × Average Annual Benefit</div>
+                    <div class="mcq-option"><input type="radio" name="f23"> D) Initial Investment - Average Annual Benefit</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: A</strong> - Payback Period = Initial Investment / Average Annual Benefit.</div>
+                </div>
+
+                <div class="mcq">
+                    <div class="mcq-question">24. Which testing approach requires knowledge of code structure?</div>
+                    <div class="mcq-option"><input type="radio" name="f24"> A) Black Box Testing</div>
+                    <div class="mcq-option"><input type="radio" name="f24"> B) White Box Testing</div>
+                    <div class="mcq-option"><input type="radio" name="f24"> C) Acceptance Testing</div>
+                    <div class="mcq-option"><input type="radio" name="f24"> D) System Testing</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - White Box Testing requires knowledge of internal code structure.</div>
+                </div>
+
+                <div class="mcq">
+                    <div class="mcq-question">25. Tradeoff Analysis is used to:</div>
+                    <div class="mcq-option"><input type="radio" name="f25"> A) Write code faster</div>
+                    <div class="mcq-option"><input type="radio" name="f25"> B) Compare design alternatives and select the best one</div>
+                    <div class="mcq-option"><input type="radio" name="f25"> C) Test the software</div>
+                    <div class="mcq-option"><input type="radio" name="f25"> D) Estimate project cost</div>
+                    <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                    <div class="mcq-answer"><strong>Answer: B</strong> - Tradeoff Analysis compares design alternatives to select the best solution.</div>
+                </div>
+            </div>
+
+            <div class="subsection" style="margin-top: 2rem; background-color: #e8f5e9; border-left-color: #4caf50;">
+                <h3>Exam Tips</h3>
+                <p>Remember to review all topics thoroughly before taking the final exam. Focus on understanding concepts rather than memorizing definitions. Practice with the MCQs provided in each section to reinforce your learning. Good luck with your exam!</p>
+            </div>
+        </section>
     </div>
 
-    <script src="script.js"></script>
+    <footer>
+        <p>&copy; 2024 Software Engineering Exam Preparation Guide. All rights reserved.</p>
+        <p>Last Updated: March 2024</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            } else {
+                menu.classList.add('active');
+            }
+        }
+
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+            
+            var selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+            }
+            
+            window.scrollTo(0, 0);
+            
+            var menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            }
+        }
+
+        function toggleAnswer(btn) {
+            var mcq = btn.parentElement;
+            var answer = mcq.querySelector('.mcq-answer');
+            
+            if (answer.classList.contains('show')) {
+                answer.classList.remove('show');
+                btn.textContent = 'Show Answer';
+            } else {
+                answer.classList.add('show');
+                btn.textContent = 'Hide Answer';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var hamburger = document.getElementById('hamburger');
+            if (hamburger) {
+                hamburger.addEventListener('click', toggleMenu);
+            }
+            showSection('home');
+        });
+    </script>
 </body>
 </html>
